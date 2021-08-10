@@ -1,0 +1,40 @@
+# Get All Books 
+GET http://localhost:3001/books
+
+
+###
+
+# Get By ID
+GET http://localhost:3001/books/45
+
+
+###
+
+# Create New Book
+POST http://localhost:3001/books
+Content-Type: application/json
+
+{
+    "name": "A Game of Thrones",
+    "author": "George R. R. Martin",
+    "isbn": "456546"
+}
+
+
+###
+
+# Update Book By ID
+PUT http://localhost:3001/books/15
+Content-Type: application/json
+
+{
+    "name": "The Hobbit",
+    "author": "J.R.R. Tolkien",
+    "isbn": "123123"
+}
+
+
+###
+
+# Delete Book By ID
+DELETE http://localhost:3001/books/2

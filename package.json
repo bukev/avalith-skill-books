@@ -1,0 +1,28 @@
+{
+  "name": "avalith-skill-books",
+  "version": "1.0.0",
+  "description": "NodeJs & MySQL challenge for Avalith",
+  "main": "index.js",
+  "scripts": {
+    "devStart": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bukev/avalith-skill-books.git"
+  },
+  "author": "Facundo Nicolás Midvetkin Tourn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bukev/avalith-skill-books/issues"
+  },
+  "homepage": "https://github.com/bukev/avalith-skill-books#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "nodemon": "^2.0.12"
+  }
+}
