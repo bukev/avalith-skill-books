@@ -25,20 +25,23 @@ db.connect((err) => {
 });
 
 // ----- get list of books ----- //
-app.get('/books', (res) => {
-  db.query('SELECT * FROM books', (err, rows) => {
-    if (err) throw err;
-    res.send(rows);
+app.get('/books', (req, res) => {
+  db.query('SELECT id, name, author, isbn FROM books', (err, rows) => {
+    if (err) {
+      res.sendStatus(500)
+    } else {
+      res.send(rows);
+    }
   });
 });
 
 // ----- get book by id ----- //
 app.get('/books/:id', (req, res) => {
-  db.query('SELECT * FROM books WHERE id = ?', [parseInt(req.params.id)], (err, rows) => {
+  db.query('SELECT id, name, author, isbn FROM books WHERE id = ?', [parseInt(req.params.id)], (err, rows) => {
     if (err) {
-      throw err;
-    } else if (rows == false) {
-      res.send(`Book n° ${req.params.id} doesn't exist.`);
+      res.sendStatus(500)
+    } else if (rows.length === 0) {
+      res.sendStatus(204)
     } else {
       res.send(rows);
     }
@@ -49,7 +52,7 @@ app.get('/books/:id', (req, res) => {
 app.post('/books', (req, res) => {
   db.query('INSERT INTO books (name,author,isbn) VALUES (?,?,?)', [req.body.name, req.body.author, req.body.isbn], (err) => {
     if (err) {
-      throw err;
+      res.sendStatus(500)
     } else {
       res.send(`Book '${req.body.name}' ISBN ${req.body.isbn} created successfully.`);
     }
@@ -60,9 +63,9 @@ app.post('/books', (req, res) => {
 app.put('/books/:id', (req, res) => {
   db.query('UPDATE books SET name = ?, author = ?, isbn = ? WHERE id = ?', [req.body.name, req.body.author, req.body.isbn, parseInt(req.params.id)], (err, rows) => {
     if (err) {
-      throw err;
-    } else if (rows == false) {
-      res.send(`Book n° ${req.params.id} doesn't exist.`);
+      res.sendStatus(500)
+    } else if (rows.length === 0) {
+      res.sendStatus(204)
     } else {
       res.send(`Book n° ${req.params.id} has been updated.`);
     }
@@ -73,9 +76,9 @@ app.put('/books/:id', (req, res) => {
 app.delete('/books/:id', (req, res) => {
   db.query('DELETE FROM books WHERE id=?', [req.params.id], (err, rows) => {
     if (err) {
-      throw err;
-    } else if (rows == false) {
-      res.send(`Book n° ${req.params.id} doesn't exist.`);
+      res.sendStatus(500)
+    } else if (rows.affectedRows === 0) {
+      res.sendStatus(204)
     } else {
       res.send(`Book n° ${req.params.id} has been deleted.`);
     }
