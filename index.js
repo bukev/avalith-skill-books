@@ -26,13 +26,10 @@ db.connect((err) => {
 
 // ----- get list of books ----- //
 app.get('/books', (req, res) => {
-
   db.query('SELECT books.id as bookid, books.name as bookname, isbn, books.author, author.name as authorname, country FROM books INNER JOIN author ON books.author = author.id', (err, rows) => {
-    
     if (err) {
       res.sendStatus(500)
     } else {
-
       // Nested Query:
       let result = rows.map(book => ({
         id: book.bookid,
@@ -44,12 +41,10 @@ app.get('/books', (req, res) => {
           country: book.country
         }
       }))
-
+      
       res.send(result)
     }
-    
   });
-
 });
 
 // ----- get book by id ----- //
