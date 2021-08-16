@@ -55,7 +55,18 @@ app.get('/books/:id', (req, res) => {
     } else if (rows.length === 0) {
       res.sendStatus(404)
     } else {
-      res.send(rows);
+      let result = rows.map(book => ({
+        id: book.bookid,
+        name: book.bookname,
+        isbn: book.isbn,
+        author: {
+          id: book.author,
+          name: book.authorname,
+          country: book.country
+        }
+      }))
+
+      res.send(result)
     }
   });
 });
